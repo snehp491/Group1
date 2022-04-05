@@ -1,0 +1,87 @@
+body {
+    background: #e4eefa;
+}
+
+.wrapper {
+    position: absolute;
+    top: 20%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+}
+
+.wrapper .search-box{
+    width:500px;
+    background: #fff;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    padding: 10px;
+}
+
+
+.wrapper .search-box .dropdown {
+    width: 150px;
+    border-right: 2px solid #dde2f1;
+    color: #9fa3b1;
+    position: relative;
+    cursor: pointer;
+}
+.wrapper .search-box .dropdown .default-option{
+    text-transform: uppercase;
+    padding: 13px 15px;
+    font-size: 14px;
+}
+
+.wrapper .search-box .dropdown ul {
+    position: absolute;
+    top: 70px;
+    left: -10px;
+    background: #fff;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.wrapper .search-box .dropdown ul li{
+    padding-bottom: 20px;
+}
+
+.wrapper .search-box .dropdown ul li:last-child {
+    padding-bottom:0 ;
+}
+
+.wrapper .search-box .dropdown ul li:hover{
+    color: orange;
+}
+
+.wrapper .search-box .dropdown:before{
+    content: "";
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    border: 8px solid;
+    border-color: orange transparent transparent transparent;
+
+}
+
+.wrapper .search-box .search-field {
+    height: 100%;
+    position: relative;
+}
+
+.wrapper .search-box .search-field .input{
+    width: 100%;
+    height: 100%;
+    border: 0 ;
+    font-size: 16px;
+    padding-left: 20px;
+    color: #9fa3b1
+}
+
+.wrapper .search-box .search-field svg{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 22px;
+    color: orange;
+    cursor: pointer;
+}
