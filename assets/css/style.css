@@ -1,0 +1,16 @@
+.title { 
+    padding: 10px;
+}
+
+body {
+    padding-top: 30px;
+}
+
+.asset-symbol {
+    height: 32px;
+    width: 32px;
+}
+
+i:hover {
+    cursor: pointer;
+}
