@@ -1,5 +1,19 @@
+.title { 
+    padding: 10px;
+}
+
 body {
-    background: #e4eefa;
+    padding-top: 30px;
+  background: #e4eefa;
+}
+
+.asset-symbol {
+    height: 32px;
+    width: 32px;
+}
+
+i:hover {
+    cursor: pointer;
 }
 
 .wrapper {
