@@ -31,3 +31,10 @@ $.ajax(settings).done(function (response) {
         console.log(response.finance.result[0].quotes[i].regularMarketPrice)
     }
 });
+
+function search($event) {
+    console.log('input: ' + $event.target.value);
+}
+
+const searchElement = document.getElementById('investment-search');
+searchElement.addEventListener('input', search);
