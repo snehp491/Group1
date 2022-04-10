@@ -9,26 +9,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Portfolio Manager</title>
 </head>
 
 <body>
     <header class="mb-3">
-        <h1 class="text-center bg-primary p-3 text-white weather-head">Portfolio Manager</h1>
+        <h1 class="text-center bg-primary p-3 text-white portfolio-head">Portfolio Manager</h1>
     </header>
     <section id="dashboard" class="container row d-flex justify-space-between">
         <div class="col-12 col-md-5">
             <div class="card">
-                <h3 class="card-header text-uppercase">Search Investments</h3>
+                <h3 class="card-header">Search Investments</h3>
                 <form id="user-form" class="card-body">
-                    <input name="city-search-term" id="city-search-term" type="text" class="form-input"
+                    <input name="investment-search" id="investment-search" type="text" class="form-input"
                         placeholder="Search" onfocus="this.value=''" />
-                    <button type="submit" class="btn btn-primary m-2" id="cityBtn">Search</button>
+                    <button type="submit" class="btn btn-primary m-2" id="searchBtn">Search</button>
                 </form>
             </div>
             <div class="card mt-3 mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
+                            <h3>Watchlist</h3>
                             <thead>
                                 <th colspan="2">Ticker</th>
                                 <th>Price</th>
@@ -91,17 +93,12 @@
                 </div>
             </div>
         </div>
-        <div id="crypto" class="col-12 col-md-7">
-            <!-- Insert Crypto Dashboard -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <h3 class="title">Dashboard</h3>
-                </div>
-            </div>
+        <div id="investments" class="col-12 col-md-7 investments">
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
+                            <h3 class="title p-1">Investments</h3>
                             <thead>
                                 <th colspan="3">Name</th>
                                 <th>Price</th>
@@ -109,6 +106,63 @@
                                 <th>Market Cap</th>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td><i class="fa fa-star-o"></td>
+                                    <td>
+                                        <img class="asset-symbol"
+                                            src="https://dynamic-assets.coinbase.com/e785e0181f1a23a30d9476038d9be91e9f6c63959b538eabbc51a1abc8898940383291eede695c3b8dfaa1829a9b57f5a2d0a16b0523580346c6b8fab67af14b/asset_icons/b57ac673f06a4b0338a596817eb0a50ce16e2059f327dc117744449a47915cb2.png" />
+                                    </td>
+                                    <td>
+                                        Bitcoin <span class="text-muted ml-2">BTC</span>
+                                    </td>
+                                    <td>
+                                        $45,870.10
+                                    </td>
+                                    <td>
+                                        <span class="text-danger">-1.18%</span>
+                                    </td>
+                                    <td>
+                                        $970B
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-star-o"></td>
+                                    <td>
+                                        <img class="asset-symbol"
+                                            src="https://dynamic-assets.coinbase.com/dbb4b4983bde81309ddab83eb598358eb44375b930b94687ebe38bc22e52c3b2125258ffb8477a5ef22e33d6bd72e32a506c391caa13af64c00e46613c3e5806/asset_icons/4113b082d21cc5fab17fc8f2d19fb996165bcce635e6900f7fc2d57c4ef33ae9.png" />
+                                    </td>
+                                    <td>
+                                        Ethereum <span class="text-muted ml-2">ETH</span>
+                                    </td>
+                                    <td>
+                                        $4,870.10
+                                    </td>
+                                    <td>
+                                        <span class="text-danger">-1.18%</span>
+                                    </td>
+                                    <td>
+                                        $415B
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-star-o"></td>
+                                    <td>
+                                        <img class="asset-symbol"
+                                            src="https://dynamic-assets.coinbase.com/9f3242d7cd65e806cc3a12b3d5c2ba3a6a1140dee43f7d1eafaad8747855065aff50fe2bda4d897076cbdada8b9b971015cb2d19c04e67b20a8145d506283287/asset_icons/4e321a458d36c0c6467b346f85e88caddde59fcc0f03444e374de32cc3def4d6.png" />
+                                    </td>
+                                    <td>
+                                        Etheremum 2 <span class="text-muted ml-2">ETH2</span>
+                                    </td>
+                                    <td>
+                                        $4,870.10
+                                    </td>
+                                    <td>
+                                        <span class="text-danger">-1.18%</span>
+                                    </td>
+                                    <td>
+                                        $415B
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td><i class="fa fa-star-o"></td>
                                     <td>
