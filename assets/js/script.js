@@ -1,5 +1,7 @@
 let cryptoUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
 
+const coinbaseBaseUrl = 'https://www.coinbase.com/api/v2/assets/search?base=USD&country=US&filter=all&include_prices=true&limit=5&order=asc&page=1&resolution=day&sort=rank';
+
 fetch(cryptoUrl).then(function(cryptoResponse){
     return cryptoResponse.json()
 })
@@ -32,8 +34,42 @@ $.ajax(settings).done(function (response) {
     }
 });
 
+// Fetch crypto results and return a promise after extracting the json response
+function searchCrypto(input) {
+    let cryptoUrl = coinbaseBaseUrl + "&query=" + input;
+
+    return fetch(cryptoUrl).then(function(cryptoResponse){
+        return cryptoResponse.json()
+    });
+}
+
 function search($event) {
     console.log('input: ' + $event.target.value);
+
+    const results = new Array();
+    searchCrypto($event.target.value)
+    .then((cryptoResults) => {
+        for (i = 0; i < cryptoResults['data'].length; i++) {
+            const item = cryptoResults['data'][i];
+            results.push(
+                {
+                    name: item.name,
+                    ticker: item.symbol,
+                    image: item.image_url,
+                    marketCap: parseFloat(item.market_cap),
+                    percentChange: parseFloat((item.percent_change * 100).toFixed(2)),
+                    price: parseFloat(item.latest),
+                    recentPrices: item.prices
+            
+                }
+            );
+        }
+
+        return results;
+    })
+    .then((results) => {
+        console.log(results);
+    });
 }
 
 const searchElement = document.getElementById('investment-search');
