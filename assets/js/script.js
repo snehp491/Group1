@@ -75,12 +75,15 @@ function buildTable(results) {
                 const name = document.createElement('p');
 
                 const cryptoName = document.createElement('strong');
-                cryptoName.textContent = result.name;
+                if (result.name) {
+                    cryptoName.textContent = result.name + ' - ';
+                }
+                
                 name.append(cryptoName);
 
                 const cryptoTicker = document.createElement('span');
                 cryptoTicker.className = 'ml-2 text-muted';
-                cryptoTicker.textContent = '- ' + result.ticker;
+                cryptoTicker.textContent = result.ticker;
                 name.append(cryptoTicker);
 
                 cellTwo.appendChild(name);
@@ -112,7 +115,11 @@ function buildTable(results) {
                 
                 const cellFive = document.createElement('td');
                 const marketCapSpan = document.createElement('span');
-                marketCapSpan.textContent = '$' + result.marketCap;
+                if (result.marketCap) {
+                    marketCapSpan.textContent = '$' + result.marketCap;
+                } else {
+                    marketCapSpan.textContent = '$ -';
+                }
 
                 cellFive.append(marketCapSpan);
 
@@ -126,6 +133,9 @@ function buildTable(results) {
                 
                 resultsElement.appendChild(row);
             }
+
+            const loader = document.getElementById('loadingResults');
+            loader.style = 'display: none;';
 }
 
 // Fetch crypto results and return a promise after extracting the json response
@@ -154,17 +164,23 @@ function searchStocks(input) {
 }
 
 function search($event) {
-    const resultsElement = document.getElementById('resultsTable');
-    resultsElement.innerHTML = ''
+    
+    const searchElement = document.getElementById('investment-input');
+    const userInput = searchElement.value;
 
-    console.log('input: ' + $event.target.value);
+    console.log('input: ' + userInput);
 
-    if ($event.target.value.length < 3) {
+    if (userInput < 2) {
         return;
     }
 
+    const loader = document.getElementById('loadingResults');
+    loader.style = 'display: inline-block;';
+    const resultsElement = document.getElementById('resultsTable');
+    resultsElement.innerHTML = ''
+
     const results = new Array();
-    searchCrypto($event.target.value)
+    searchCrypto(userInput)
     .then((cryptoResults) => {
         console.log(cryptoResults);
         for (i = 0; i < cryptoResults['data'].length; i++) {
@@ -188,7 +204,7 @@ function search($event) {
         return results;
     })
     .then((existingResults) => {
-        searchStocks($event.target.value)
+        searchStocks(userInput)
         .then((stockResults) => {
             console.log(stockResults);
             console.log(existingResults);
@@ -233,5 +249,7 @@ function search($event) {
     });
 }
 
-const searchElement = document.getElementById('investment-search');
-searchElement.addEventListener('input', search);
+const searchBtn = document.getElementById('searchBtn');
+searchBtn.addEventListener('click', search);
+
+
