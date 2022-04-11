@@ -99,3 +99,7 @@ i:hover {
     color: orange;
     cursor: pointer;
 }
+
+.watchlist-table {
+    font-size: 14px;
+}
