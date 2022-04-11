@@ -39,7 +39,7 @@ function buildTable(results) {
 
         const cellZero = document.createElement('td');
         const watchlistBtn = document.createElement('button');
-        watchlistBtn.className = 'fa fa-star-o btn btn-primary';
+        watchlistBtn.className = 'fa fa-star-o btn btn-outline-primary';
 
         cellZero.append(watchlistBtn);
 
@@ -87,7 +87,7 @@ function buildTable(results) {
         const price = document.createElement('span');
 
         if (result.price) {
-            price.textContent = '$' + result.price.toFixed(2);
+            price.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.price);
         } else {
             price.textContent = '-';
         }
@@ -111,7 +111,7 @@ function buildTable(results) {
         const cellFive = document.createElement('td');
         const marketCapSpan = document.createElement('span');
         if (result.marketCap) {
-            marketCapSpan.textContent = '$' + result.marketCap;
+            marketCapSpan.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.marketCap);
         } else {
             marketCapSpan.textContent = '$ -';
         }
@@ -165,7 +165,7 @@ function buildTable(results) {
             const watchPrice = document.createElement('span');
 
             if (result.price) {
-                watchPrice.textContent = '$' + result.price.toFixed(2);
+                watchPrice.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.price);
             } else {
                 watchPrice.textContent = '-';
             }
@@ -190,7 +190,7 @@ function buildTable(results) {
             // Display Trash Can
             const watchCellFour = document.createElement('td');
             const watchTrash = document.createElement('button');
-            watchTrash.className = 'fa fa-trash-o btn btn-primary';
+            watchTrash.className = 'fa fa-trash-o btn btn-outline-danger';
 
             watchCellFour.append(watchTrash)
 
