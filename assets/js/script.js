@@ -202,6 +202,9 @@ function buildTable(results) {
             watchRow.append(watchCellFour)
 
             watchResultsElement.append(watchRow);
+
+            // Local Storage
+            
         })
     }
 
