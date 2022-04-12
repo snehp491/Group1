@@ -14,15 +14,16 @@
 
 <body>
     <header class="mb-3">
-        <h1 class="text-center card-panel teal lighten-2 p-3 text-white portfolio-head">Portfolio Manager</h1>
+        <h1 class="text-center card-panel teal lighten-2 p-3 text-white font-weight-bold m-0">Portfolio Manager</h1>
     </header>
     <section id="dashboard" class="row d-flex justify-space-between" style="margin-left: 0; margin-right: 0;">
         <div class="col-lg-4 col-md-5">
             <div class="card">
-                <h3 class="card-header">Search Investments</h3>
+                <h4 class="m-0 card-panel grey lighten-1">Search Investments</h4>
                 <div class="card-body">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Enter a company name or ticker" id="investment-input" onfocus="this.value= ''">
+                        <input type="text" class="form-control" placeholder="Enter a company name or ticker"
+                            id="investment-input" onfocus="this.value= ''">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
                         </div>
@@ -31,10 +32,10 @@
             </div>
 
             <div class="card mt-3 mb-3">
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table watchlist-table highlight">
-                            <h3>Watchlist</h3>
+                            <h4 class="card-panel grey lighten-1 m-0">Watchlist</h4>
                             <thead>
                                 <th></th>
                                 <th>Ticker</th>
@@ -43,7 +44,7 @@
                                 <th>Drop</th>
                             </thead>
                             <tbody id="watchlistTable">
-                    
+
                             </tbody>
                         </table>
                     </div>
@@ -52,10 +53,10 @@
         </div>
         <div id="investments" class="col-lg-8 col-md-7 investments">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table highlight">
-                            <h3 class="title p-1">Investments</h3>
+                            <h4 class="card-panel grey lighten-1 m-0">Investments</h4>
                             <thead>
                                 <th></th>
                                 <th></th>
@@ -72,7 +73,7 @@
 
                     </table>
                     <div class="d-flex justify-content-center">
-                        <div class="spinner-border text-primary" role="status" id="loadingResults"
+                        <div class="spinner-border text-primary mb-3" role="status" id="loadingResults"
                             style="display: none;">
                         </div>
                     </div>
@@ -85,23 +86,3 @@
 </body>
 
 </html>
-
-
-<!-- <div class="wrapper">
-        <div class="search-box">
-            <div class="dropdown">
-                <div class="default-option">-Select-</div>
-                <ul>
-                    <li>-Select-</li>
-                    <li>Stocks</li>
-                    <li>Crypto</li>
-                </ul>
-            </div>
-            <div class="search-field">
-                <input type="text" class="input" placeholder="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                  </svg>
-            </div>
-        </div>
-    </div>

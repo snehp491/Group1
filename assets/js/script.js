@@ -191,6 +191,9 @@ function buildTable(results) {
             const watchCellFour = document.createElement('td');
             const watchTrash = document.createElement('button');
             watchTrash.className = 'fa fa-trash-o btn btn-outline-danger';
+            $(watchTrash).click(function(){
+                watchRow.remove(watchCellOne)
+            })
 
             watchCellFour.append(watchTrash)
 
@@ -204,7 +207,7 @@ function buildTable(results) {
             watchResultsElement.append(watchRow);
 
             // Local Storage
-            
+
         })
     }
 
