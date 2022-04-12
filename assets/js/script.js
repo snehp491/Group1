@@ -190,7 +190,10 @@ function buildTable(results) {
             // Display Trash Can
             const watchCellFour = document.createElement('td');
             const watchTrash = document.createElement('button');
-            watchTrash.className = 'fa fa-trash-o btn btn-outline-danger';
+            watchTrash.className = 'fa fa-trash-o btn';
+            $(watchTrash).click(function(){
+                watchRow.remove(watchCellOne)
+            })
 
             watchCellFour.append(watchTrash)
 
