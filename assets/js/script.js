@@ -5,14 +5,9 @@ const coinbaseBaseUrl = 'https://www.coinbase.com/api/v2/assets/search?base=USD&
 fetch(cryptoUrl).then(function(cryptoResponse){
     return cryptoResponse.json()
 })
-.then(function(crypto) {
-    console.log(crypto)
-    for (i = 0; i < 5; i++) {
-        console.log(crypto[i].id) 
-        console.log(crypto[i].symbol) 
-        console.log(crypto[i].current_price) 
-    }
-})
+    .then(function (crypto) {
+        console.log(crypto)
+    })
 
 const settings = {
 	"async": true,
@@ -132,6 +127,85 @@ function buildTable(results) {
                 row.append(cellFive);
                 
                 resultsElement.appendChild(row);
+              
+              $(watchlistBtn).click(function () {
+            const watchResultsElement = document.getElementById('watchlistTable');
+
+            const watchRow = document.createElement('tr');
+
+            // Get logo
+            const watchCellZero = document.createElement('td');
+
+            if (result.image) {
+                const watchIcon = document.createElement('img');
+                watchIcon.src = result.image
+                watchIcon.height = 24;
+                watchIcon.width = 24;
+                watchCellZero.appendChild(watchIcon);
+
+            } else {
+                const watchDash = document.createElement('span');
+                watchDash.className = 'text-muted';
+                watchDash.textContent = '-';
+                watchCellZero.append(watchDash);
+            }
+
+            // Get Ticker
+            const watchCellOne = document.createElement('td');
+            const watchName = document.createElement('p');
+
+            const watchCryptoTicker = document.createElement('span');
+            watchCryptoTicker.textContent = result.ticker;
+            watchName.append(watchCryptoTicker);
+
+            watchCellOne.appendChild(watchName);
+
+            // Get Price
+            const watchCellTwo = document.createElement('td');
+            const watchPrice = document.createElement('span');
+
+            if (result.price) {
+                watchPrice.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result.price);
+            } else {
+                watchPrice.textContent = '-';
+            }
+
+            watchCellTwo.append(watchPrice);
+
+            // Get Percentage
+            const watchCellThree = document.createElement('td');
+            const watchPercentSpan = document.createElement('span');
+            const watchPercentChange = result.percentChange;
+
+            if (watchPercentChange < 0) {
+                watchPercentSpan.className = 'text-danger';
+            } else {
+                watchPercentSpan.className = 'text-success';
+            }
+
+            watchPercentSpan.textContent = result.percentChange + '%';
+
+            watchCellThree.append(watchPercentSpan);
+
+            // Display Trash Can
+            const watchCellFour = document.createElement('td');
+            const watchTrash = document.createElement('button');
+            watchTrash.className = 'fa fa-trash-o btn btn-outline-danger';
+
+            watchCellFour.append(watchTrash)
+
+            // Append Details
+            watchRow.append(watchCellZero)
+            watchRow.append(watchCellOne)
+            watchRow.append(watchCellTwo)
+            watchRow.append(watchCellThree)
+            watchRow.append(watchCellFour)
+
+            watchResultsElement.append(watchRow);
+
+            // Local Storage
+            
+        })
             }
 
             const loader = document.getElementById('loadingResults');
