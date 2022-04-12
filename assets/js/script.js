@@ -38,10 +38,10 @@ function buildTable(results) {
                 const row = document.createElement('tr');
 
                 const cellZero = document.createElement('td');
-                const faIcon = document.createElement('i');
-                faIcon.className = 'fa fa-star-o';
+                const watchlistBtn = document.createElement('button');
+                watchlistBtn.className = 'fa fa-star-o btn btn-outline-primary';
 
-                cellZero.append(faIcon);
+                cellZero.append(watchlistBtn);
 
                 const cellOne = document.createElement('td');
 
