@@ -30,11 +30,13 @@ function setupFavorites(favorites) {
         if (favorites[i].type === 'Crypto') {
             getCrypto(favorites[i].slug).then((result) => {
                 const blankCell = document.createElement('td');
+                blankCell.src = result['data']['image']
+
                 const tickerCell = document.createElement('td');
                 tickerCell.textContent = result['data']['base'];
 
                 const priceCell = document.createElement('td');
-                priceCell.textContent = result['data']['prices']['latest'];
+                priceCell.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result['data']['prices']['latest']);
 
                 const changeCell = document.createElement('td');
                 const span = document.createElement('span');
@@ -61,17 +63,17 @@ function setupFavorites(favorites) {
             getStock(favorites[i].ticker).then((result) => {
                
                 const imgCell = document.createElement('td');
+                imgCell.textContent = "-"
 
-            
                 const tickerCell = document.createElement('td');
                 tickerCell.textContent = result['price']['symbol'];
 
                 const priceCell = document.createElement('td');
-                priceCell.textContent = result['price']['regularMarketDayHigh']['raw'];
+                priceCell.textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(result['price']['regularMarketDayHigh']['raw']);
 
                 const changeCell = document.createElement('td');
                 const span = document.createElement('span');
-                span.textContent = (result['price']['regularMarketChangePercent']['raw'] * 100) + '%';
+                span.textContent = (result['price']['regularMarketChangePercent']['raw'] * 100).toFixed(2) + '%';
 
                 if (result['price']['regularMarketChangePercent']['raw'] > 0) {
                     span.className = 'text-success';
@@ -419,7 +421,7 @@ function search($event) {
                         percentChange: parseFloat((item.percent_change * 100).toFixed(2)),
                         price: parseFloat(item.latest),
                         recentPrices: item.prices
-
+                        
                     }
                 );
             }
