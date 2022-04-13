@@ -191,7 +191,7 @@ function buildTable(results) {
             const watchCellFour = document.createElement('td');
             const watchTrash = document.createElement('button');
             watchTrash.className = 'fa fa-trash-o btn';
-            $(watchTrash).click(function(){
+            $(watchTrash).click(function () {
                 watchRow.remove(watchCellOne)
             })
 
@@ -329,4 +329,7 @@ function search($event) {
 const searchBtn = document.getElementById('searchBtn');
 searchBtn.addEventListener('click', search);
 
+$("#clearBtn").on("click", function () {
+    localStorage.clear()
+})
 
