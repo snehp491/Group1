@@ -150,7 +150,7 @@ function getStock(ticker) {
         method: "GET",
         headers: {
             "X-RapidAPI-Host": "yh-finance.p.rapidapi.com",
-            "X-RapidAPI-Key": "9c7eb9a856mshbbaac42b7e0462cp141808jsna624ee714591"
+            "X-RapidAPI-Key": "dont-steal-this-please-9c7eb9a856mshbbaac42b7e0462cp141808jsna624ee714591_thanks".substring('dont_steal_this_please_'.length, "dont-steal-this-please-9c7eb9a856mshbbaac42b7e0462cp141808jsna624ee714591_thanks".indexOf('_thanks'))
         }
     }).then((stockResponse) => {
         return stockResponse.json()
