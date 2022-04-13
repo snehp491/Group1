@@ -33,13 +33,12 @@ function buildTable(results) {
 
     console.log('results length: ' + results.length);
     const resultsElement = document.getElementById('resultsTable');
-
     for (const result of results) {
         const row = document.createElement('tr');
 
         const cellZero = document.createElement('td');
         const watchlistBtn = document.createElement('button');
-        watchlistBtn.className = 'fa fa-star-o btn btn-outline-primary';
+        watchlistBtn.className = 'fa fa-star-o btn';
 
         cellZero.append(watchlistBtn);
 
@@ -129,6 +128,7 @@ function buildTable(results) {
         resultsElement.appendChild(row);
 
         $(watchlistBtn).click(function () {
+
             const watchResultsElement = document.getElementById('watchlistTable');
 
             const watchRow = document.createElement('tr');
