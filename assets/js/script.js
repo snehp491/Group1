@@ -5,8 +5,8 @@ const globalResults = {};
 
 let favorites = JSON.parse(localStorage.getItem('favorites'));
 
-const clearBtn = document.getElementById('clearBtn');
-clearBtn.addEventListener('click', clearFavorites);
+// const clearBtn = document.getElementById('clearBtn');
+// clearBtn.addEventListener('click', clearFavorites);
 
 function setupFavorites(favorites) {
     const favoritesElement = document.getElementById('watchlistTable');
@@ -121,12 +121,12 @@ const settings = {
 //     }
 // });
 
-function clearFavorites() {
-    localStorage.setItem('favorites', null);
-    const favoritesElement = document.getElementById('watchlistTable');
-    favoritesElement.innerHTML = '';
+// function clearFavorites() {
+//     localStorage.setItem('favorites', null);
+//     const favoritesElement = document.getElementById('watchlistTable');
+//     favoritesElement.innerHTML = '';
 
-}
+// }
 function addFavorite(result) {
     favorites.push(result);
 
@@ -477,7 +477,7 @@ function search($event) {
 const searchBtn = document.getElementById('searchBtn');
 searchBtn.addEventListener('click', search);
 
-$("#clearBtn").on("click", function () {
-    localStorage.clear()
-})
+// $("#clearBtn").on("click", function () {
+//     localStorage.clear()
+// })
 
