@@ -1,13 +1,103 @@
 let cryptoUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
 
 const coinbaseBaseUrl = 'https://www.coinbase.com/api/v2/assets/search?base=USD&country=US&filter=all&include_prices=true&limit=3&order=asc&page=1&resolution=day&sort=rank';
+const globalResults = {};
 
-fetch(cryptoUrl).then(function (cryptoResponse) {
-    return cryptoResponse.json()
-})
-    .then(function (crypto) {
-        console.log(crypto)
-    })
+let favorites = JSON.parse(localStorage.getItem('favorites'));
+
+const clearBtn = document.getElementById('clearBtn');
+clearBtn.addEventListener('click', clearFavorites);
+
+function setupFavorites(favorites) {
+    const favoritesElement = document.getElementById('watchlistTable');
+    favoritesElement.innerHTML = '';
+
+    for (i = 0; i < favorites.length; i++) {
+
+        console.log(favorites);
+        console.log(favorites[i]);
+        console.log(favorites[i].ticker);
+        const row = document.createElement('tr');
+
+        const deleteCell = document.createElement('td');
+        const deleteButton = document.createElement('button')
+        deleteButton.className = 'btn btn-danger fa fa-trash-o btn';
+
+        deleteButton.id = i;
+        deleteButton.addEventListener('click', removeFavorite);
+        deleteCell.append(deleteButton);
+        
+        if (favorites[i].type === 'Crypto') {
+            getCrypto(favorites[i].slug).then((result) => {
+                const blankCell = document.createElement('td');
+                const tickerCell = document.createElement('td');
+                tickerCell.textContent = result['data']['base'];
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = result['data']['prices']['latest'];
+
+                const changeCell = document.createElement('td');
+                const span = document.createElement('span');
+                span.textContent = (result['data']['prices']['latest_price']['percent_change']['day'] * 100).toFixed(2) + '%';
+
+                if (result['data']['prices']['latest_price']['percent_change']['day'] > 0) {
+                    span.className = 'text-success';
+                } else {
+                    span.className = 'text-danger';
+                }
+
+                changeCell.append(span);
+
+                row.append(blankCell);
+                row.append(tickerCell);
+                row.append(priceCell);
+                row.append(changeCell);
+                row.append(deleteCell);
+
+                favoritesElement.append(row);
+
+            });
+        } else {
+            getStock(favorites[i].ticker).then((result) => {
+               
+                const imgCell = document.createElement('td');
+
+            
+                const tickerCell = document.createElement('td');
+                tickerCell.textContent = result['price']['symbol'];
+
+                const priceCell = document.createElement('td');
+                priceCell.textContent = result['price']['regularMarketDayHigh']['raw'];
+
+                const changeCell = document.createElement('td');
+                const span = document.createElement('span');
+                span.textContent = (result['price']['regularMarketChangePercent']['raw'] * 100) + '%';
+
+                if (result['price']['regularMarketChangePercent']['raw'] > 0) {
+                    span.className = 'text-success';
+                } else {
+                    span.className = 'text-danger';
+                }
+
+                changeCell.append(span);
+
+                row.append(imgCell);
+                row.append(tickerCell);
+                row.append(priceCell);
+                row.append(changeCell);
+                row.append(deleteCell);
+
+                favoritesElement.append(row);
+            });
+        }
+    }
+}
+if (favorites) {
+    console.log(favorites);
+    setupFavorites(favorites);
+} else {
+    favorites = new Array();
+}
 
 const settings = {
     "async": true,
@@ -19,6 +109,59 @@ const settings = {
         "X-RapidAPI-Key": "9c7eb9a856mshbbaac42b7e0462cp141808jsna624ee714591"
     }
 };
+
+// $.ajax(settings).done(function (response) {
+// 	console.log(response);
+//     for (i = 0; i < 5; i++) {
+//         console.log(response.finance.result[0].quotes[i].longName)
+//         console.log(response.finance.result[0].quotes[i].symbol)
+//         console.log(response.finance.result[0].quotes[i].regularMarketPrice)
+//     }
+// });
+
+function clearFavorites() {
+    localStorage.setItem('favorites', null);
+    const favoritesElement = document.getElementById('watchlistTable');
+    favoritesElement.innerHTML = '';
+
+}
+function addFavorite(result) {
+    favorites.push(result);
+
+    console.log(favorites);
+    localStorage.setItem('favorites', JSON.stringify(favorites));   
+}
+
+function removeFavorite($event) {
+    console.log('remove : ' + $event.target.id);
+    console.log(favorites);
+    favorites.splice(parseInt($event.target.id), 1);
+    console.log(favorites);
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+    setupFavorites(favorites);
+}
+
+function getStock(ticker) {
+    const url = 'https://yh-finance.p.rapidapi.com/stock/v2/get-summary?region=US&symbol=' + ticker;
+
+    return fetch(url, {
+        method: "GET",
+        headers: {
+            "X-RapidAPI-Host": "yh-finance.p.rapidapi.com",
+            "X-RapidAPI-Key": "9c7eb9a856mshbbaac42b7e0462cp141808jsna624ee714591"
+        }
+    }).then((stockResponse) => {
+        return stockResponse.json()
+    });
+}
+
+function getCrypto(ticker) {
+    const url = 'https://www.coinbase.com/api/v2/assets/prices/' + ticker + '?base=USD';
+
+    return fetch(url).then((cryptoResponse) => {
+        return cryptoResponse.json()
+    });
+}
 
 // $.ajax(settings).done(function (response) {
 // 	console.log(response);
@@ -193,7 +336,8 @@ function buildTable(results) {
             watchTrash.className = 'fa fa-trash-o btn';
             $(watchTrash).click(function () {
                 watchRow.remove(watchCellOne)
-            })
+                removeFavorite(result);
+            });
 
             watchCellFour.append(watchTrash)
 
@@ -207,8 +351,9 @@ function buildTable(results) {
             watchResultsElement.append(watchRow);
 
             // Local Storage
+            addFavorite(result);
 
-        })
+        });
     }
 
     const loader = document.getElementById('loadingResults');
@@ -266,6 +411,7 @@ function search($event) {
                 results.push(
                     {
                         type: 'Crypto',
+                        slug: item.slug,
                         name: item.name,
                         ticker: item.symbol,
                         image: item.image_url,
