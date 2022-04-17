@@ -16,7 +16,9 @@ The user is presented with a search bar where they can enter the full name of a 
 
 The user is then presented with a comprehensive list of every investment that matches their search term. The info presented includes the logo, investment name, ticker, current price, daily change and market cap.
 
-The user can then save an investment to their watchlist via local storage. The watchlist displays the ticker, current price and daily change. This information updates in real time as well.
+The user can then save an investment to their watchlist via local storage. The watchlist displays the ticker, current price and daily change. This information updates in real time as well. 
+
+The user has the ability to delete any of the investments from the watchlist.
 
 ## Screenshots of Deployed Application
 Overview of the Dashboard
