@@ -5,18 +5,12 @@ const globalResults = {};
 
 let favorites = JSON.parse(localStorage.getItem('favorites'));
 
-// const clearBtn = document.getElementById('clearBtn');
-// clearBtn.addEventListener('click', clearFavorites);
-
+// Watchlist display
 function setupFavorites(favorites) {
     const favoritesElement = document.getElementById('watchlistTable');
     favoritesElement.innerHTML = '';
 
     for (i = 0; i < favorites.length; i++) {
-
-        console.log(favorites);
-        console.log(favorites[i]);
-        console.log(favorites[i].ticker);
         const row = document.createElement('tr');
 
         const deleteCell = document.createElement('td');
@@ -95,12 +89,12 @@ function setupFavorites(favorites) {
     }
 }
 if (favorites) {
-    console.log(favorites);
     setupFavorites(favorites);
 } else {
     favorites = new Array();
 }
 
+// Stock API
 const settings = {
     "async": true,
     "crossDomain": true,
@@ -112,37 +106,21 @@ const settings = {
     }
 };
 
-// $.ajax(settings).done(function (response) {
-// 	console.log(response);
-//     for (i = 0; i < 5; i++) {
-//         console.log(response.finance.result[0].quotes[i].longName)
-//         console.log(response.finance.result[0].quotes[i].symbol)
-//         console.log(response.finance.result[0].quotes[i].regularMarketPrice)
-//     }
-// });
-
-// function clearFavorites() {
-//     localStorage.setItem('favorites', null);
-//     const favoritesElement = document.getElementById('watchlistTable');
-//     favoritesElement.innerHTML = '';
-
-// }
+// Store favorites to local storage
 function addFavorite(result) {
     favorites.push(result);
 
-    console.log(favorites);
     localStorage.setItem('favorites', JSON.stringify(favorites));   
 }
 
+// Remove favorites from local storage
 function removeFavorite($event) {
-    console.log('remove : ' + $event.target.id);
-    console.log(favorites);
     favorites.splice(parseInt($event.target.id), 1);
-    console.log(favorites);
     localStorage.setItem('favorites', JSON.stringify(favorites));
     setupFavorites(favorites);
 }
 
+// Get Stock Info
 function getStock(ticker) {
     const url = 'https://yh-finance.p.rapidapi.com/stock/v2/get-summary?region=US&symbol=' + ticker;
 
@@ -157,6 +135,7 @@ function getStock(ticker) {
     });
 }
 
+// Get Crypto Info
 function getCrypto(ticker) {
     const url = 'https://www.coinbase.com/api/v2/assets/prices/' + ticker + '?base=USD';
 
@@ -165,18 +144,9 @@ function getCrypto(ticker) {
     });
 }
 
-// $.ajax(settings).done(function (response) {
-// 	console.log(response);
-//     for (i = 0; i < 5; i++) {
-//         console.log(response.finance.result[0].quotes[i].longName)
-//         console.log(response.finance.result[0].quotes[i].symbol)
-//         console.log(response.finance.result[0].quotes[i].regularMarketPrice)
-//     }
-// });
-
+// Display results
 function buildTable(results) {
 
-    console.log('results length: ' + results.length);
     const resultsElement = document.getElementById('resultsTable');
     for (const result of results) {
         const row = document.createElement('tr');
@@ -202,7 +172,6 @@ function buildTable(results) {
             dash.textContent = '-';
             cellOne.append(dash);
         }
-
 
         const cellOneA = document.createElement('td');
         const type = document.createElement('span');
@@ -387,12 +356,11 @@ function searchStocks(input) {
     });
 }
 
+// Search function
 function search($event) {
 
     const searchElement = document.getElementById('investment-input');
     const userInput = searchElement.value;
-
-    console.log('input: ' + userInput);
 
     if (userInput < 2) {
         return;
@@ -406,10 +374,8 @@ function search($event) {
     const results = new Array();
     searchCrypto(userInput)
         .then((cryptoResults) => {
-            console.log(cryptoResults);
             for (i = 0; i < cryptoResults['data'].length; i++) {
                 const item = cryptoResults['data'][i];
-                console.log('processing crypto ' + item.symbol);
                 results.push(
                     {
                         type: 'Crypto',
@@ -421,7 +387,6 @@ function search($event) {
                         percentChange: parseFloat((item.percent_change * 100).toFixed(2)),
                         price: parseFloat(item.latest),
                         recentPrices: item.prices
-                        
                     }
                 );
             }
@@ -431,12 +396,8 @@ function search($event) {
         .then((existingResults) => {
             searchStocks(userInput)
                 .then((stockResults) => {
-                    console.log(stockResults);
-                    console.log(existingResults);
-                    console.log(stockResults['quotes'].length);
                     for (i = 0; i < 3 && i < stockResults['quotes'].length; i++) {
                         const item = stockResults['quotes'][i];
-                        console.log('processing stock ' + item.symbol);
 
                         const row = {
                             type: item.typeDisp,
@@ -456,19 +417,15 @@ function search($event) {
                         };
 
                         $.ajax(settings).done(function (response) {
-                            // console.log(response);
-
                             row['marketCap'] = response['price']['marketCap']['raw'];
                             row['percentChange'] = parseFloat((response['price']['regularMarketChangePercent']['raw'] * 100).toFixed(2)),
                                 row['price'] = response['price']['regularMarketPrice']['raw'];
                             row['recentPrices'] = null;
-
                         });
 
                         existingResults.push(row);
                     }
                 }).then(() => {
-                    console.log('triggering buildTable');
                     buildTable(existingResults);
                 });
         });
@@ -476,8 +433,3 @@ function search($event) {
 
 const searchBtn = document.getElementById('searchBtn');
 searchBtn.addEventListener('click', search);
-
-// $("#clearBtn").on("click", function () {
-//     localStorage.clear()
-// })
-
