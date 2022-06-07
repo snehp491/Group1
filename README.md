@@ -28,4 +28,4 @@ Watchlist that saves to local storage
 ![watchlist](./assets/images/watchlist.png)
 
 ## URL of Deployed Application
-https://github.com/snehp491/Group1
+https://github.com/snehp491/Group1# project-1-clone
